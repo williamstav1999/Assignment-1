@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Assignment 1 - Mar-1-2024</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>ArcGIS Maps SDK for JavaScript Tutorials: Display a map</title>
+
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.29/"></script>
+
+  <script>
+    require(["esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Home", "esri/layers/GraphicsLayer", "esri/widgets/Sketch"], function(esriConfig, Map, MapView, Home, GraphicsLayer, Sketch) {
+      esriConfig.apiKey = "AAPKdce501cc06b14ef5aa7c62863fb3e7d9q3uQoQAHnBZ1sX49P5CQeYxL5jtaTDXSdKL0eTTPZQU3arPW93563lbUS2KIS3La";
+      const graphicsLayer = new GraphicsLayer();
+      const map = new Map({
+        basemap: "arcgis/topographic",
+        layers: [graphicsLayer]
+      });
+      const view = new MapView({
+        container: "viewDiv",
+        map: map,
+        zoom: 13,
+        center: [-118.805, 34.027]
+      });
+      view.when(() => {
+        const sketch = new Sketch({
+          layer: graphicsLayer,
+          view: view,
+          // graphic will be selected as soon as it is created
+          creationMode: "update"
+        });
+        view.ui.add(sketch, "top-right");
+      });
+      const homeBtn = new Home({
+        view: view
+      }); // Add the home button to the top left corner of the view
+      view.ui.add(homeBtn, "top-left");
+    });
+  </script>
+
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+</body>
+
+</html>
+<!-- partial -->
+  
+</body>
+</html>
